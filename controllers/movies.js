@@ -22,7 +22,7 @@ module.exports.createMovie = (req, res, next) => {
 module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.id)
     .orFail(() => {
-      throw new NotFoundError('Фильм с указанным _id не найдена');
+      throw new NotFoundError('Фильм с указанным _id не найден');
     })
     .then((movie) => {
       if (req.user.id !== movie.owner.toString()) {

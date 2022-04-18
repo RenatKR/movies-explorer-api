@@ -93,8 +93,3 @@ module.exports.editUser = (req, res, next) => {
     })
     .catch(next);
 };
-
-
-
-
-

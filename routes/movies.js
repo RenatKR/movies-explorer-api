@@ -3,13 +3,13 @@ const { celebrate, Joi } = require('celebrate');
 
 const {
   getMovies,
-  postMovie,
+  createMovie,
   deleteMovie
 } = require('../controllers/movies')
 
 router.get('/movies', getMovies);
 
-router.post('./movies', postMovie);
+router.post('./movies', createMovie);
 
 router.delete('./movies/_id', deleteMovie);
 
