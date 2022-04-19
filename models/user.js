@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 30,
   },
-})
+});
 
 // eslint-disable-next-line func-names
 userSchema.statics.findUserByIdCredentials = function (email, password) {

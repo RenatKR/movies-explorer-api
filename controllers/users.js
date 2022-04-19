@@ -91,11 +91,9 @@ module.exports.editUser = (req, res, next) => {
             new: true,
             runValidators: true,
           },
-        )
+        );
       }
-      if (user) {
-        throw new ErrorConflict('Пользователь с таким email существует');
-      }
+      throw new ErrorConflict('Пользователь с таким email существует');
     })
     .then((user) => {
       if (!user) {
