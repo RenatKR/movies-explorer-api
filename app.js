@@ -13,7 +13,7 @@ const {
 const cors = require('cors');
 const userRouter = require('./routes/users');
 const movieRouter = require('./routes/movies');
-const { createUser, login, getUser} = require('./controllers/users');
+const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -36,7 +36,7 @@ app.use(requestLogger);
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(3),
+    password: Joi.string().required(),
     name: Joi.string().min(2).max(30),
   }).unknown(true),
 }), createUser);
@@ -44,7 +44,7 @@ app.post('/signup', celebrate({
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(3),
+    password: Joi.string().required(),
   }),
 }), login);
 

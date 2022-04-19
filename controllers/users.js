@@ -71,19 +71,35 @@ module.exports.getUser = (req, res, next) => {
 
 module.exports.editUser = (req, res, next) => {
   const { email, name } = req.body;
-  User.findByIdAndUpdate(
-    req.user.id,
-    { email, name },
-    {
-      new: true,
-      runValidators: true,
-    },
-  )
-    .orFail(() => {
-      throw new Error('NotFound');
+  User.findOne({ email })
+    .then((user) => {
+      if (!user) {
+        return User.findByIdAndUpdate(
+          req.user.id,
+          { email, name },
+          {
+            new: true,
+            runValidators: true,
+          },
+        );
+      }
+      if (user._id.toString() === req.user.id) {
+        return User.findByIdAndUpdate(
+          req.user.id,
+          { email, name },
+          {
+            new: true,
+            runValidators: true,
+          },
+        )
+      }
+      if (user) {
+        throw new ErrorConflict('Пользователь с таким email существует');
+      }
     })
     .then((user) => {
       if (!user) {
+        console.log(user);
         throw new NotFoundError('Пользователь по указанному _id не найден');
       }
       res.send({

@@ -1,15 +1,18 @@
-const Movie = require('../models/movie')
+const Movie = require('../models/movie');
+const NotFoundError = require('../errors/NotFoundError');
+const ValidationError = require('../errors/ValidationError');
 
 module.exports.getMovies = (req, res, next) => {
-  Movie.find({})
+  const curUser = req.user.id;
+  Movie.find({owner: curUser})
     .then((movie) => res.send(movie))
     .catch(next);
 }
 
 module.exports.createMovie = (req, res, next) => {
   const owner = req.user.id;
-  const { country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId } = req.body;
-  Movie.create({ country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId, owner })
+  const { country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId } = req.body;
+  Movie.create({ country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId, owner })
     .then((movie) => {
       if (!movie) {
         throw new ValidationError('Переданы некорректные данные при создании фильма');
@@ -22,7 +25,7 @@ module.exports.createMovie = (req, res, next) => {
 module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.id)
     .orFail(() => {
-      throw new NotFoundError('Фильм с указанным _id не найден');
+      throw new NotFoundError('Фильм с указанным id не найден');
     })
     .then((movie) => {
       if (req.user.id !== movie.owner.toString()) {
