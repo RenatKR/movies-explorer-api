@@ -97,7 +97,6 @@ module.exports.editUser = (req, res, next) => {
     })
     .then((user) => {
       if (!user) {
-        console.log(user);
         throw new NotFoundError('Пользователь по указанному _id не найден');
       }
       res.send({

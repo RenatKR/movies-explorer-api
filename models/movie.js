@@ -81,17 +81,3 @@ const movieSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('movie', movieSchema);
-
-// {
-//   "country": "123",
-//   "director":"123",
-//   "duration": "123",
-//   "year": "1234",
-//   "description": "123",
-//   "image": "https://avatars.mds.yandex.net/i?id=84bd22cf456cd17bd05c72692ce39b29-5473490-images-thumbs&n=13",
-//   "trailerLink": "https://avatars.mds.yandex.net/i?id=84bd22cf456cd17bd05c72692ce39b29-5473490-images-thumbs&n=13",
-//   "thumbnail": "https://avatars.mds.yandex.net/i?id=84bd22cf456cd17bd05c72692ce39b29-5473490-images-thumbs&n=13",
-//   "movieId": "123",
-//   "nameRU": "123",
-//   "nameEN": "123"
-//   }
