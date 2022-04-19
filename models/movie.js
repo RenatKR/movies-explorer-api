@@ -1,3 +1,6 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable object-shorthand */
+/* eslint-disable func-names */
 const mongoose = require('mongoose');
 const isURL = require('validator/lib/isURL');
 
@@ -59,9 +62,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      // eslint-disable-next-line object-shorthand
       validator: function (v) {
-        // eslint-disable-next-line no-useless-escape
         return /[а-яё, А-ЯЁ\/\`\~\!\@\#\$\%\^\&\*\(\)\)\_\+\=\[\]\{\}\;\:\'\"\,\<\.\>\?\/|\\0-9]/.test(v);
       },
       message: (props) => `${props.value} должен быть на русском языке`,
@@ -71,9 +72,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      // eslint-disable-next-line object-shorthand
       validator: function (v) {
-        // eslint-disable-next-line no-useless-escape
         return /[a-z, A-Z\/\`\~\!\@\#\$\%\^\&\*\(\)\)\_\+\=\[\]\{\}\;\:\'\"\,\<\.\>\?\/|\\0-9]/.test(v);
       },
       message: (props) => `${props.value} должен быть на английском языке`,
