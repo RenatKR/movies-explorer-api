@@ -1,6 +1,3 @@
-/* eslint-disable no-useless-escape */
-/* eslint-disable object-shorthand */
-/* eslint-disable func-names */
 const mongoose = require('mongoose');
 const isURL = require('validator/lib/isURL');
 
@@ -55,7 +52,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   movieId: {
-    type: String,
+    type: Number,
     required: true,
   },
   nameRU: {

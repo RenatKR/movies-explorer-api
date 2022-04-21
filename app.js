@@ -1,6 +1,3 @@
-/* eslint-disable no-useless-escape */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -14,7 +11,6 @@ const cors = require('cors');
 const userRouter = require('./routes/users');
 const movieRouter = require('./routes/movies');
 const { createUser, login } = require('./controllers/users');
-const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -33,30 +29,15 @@ app.use(cors());
 
 app.use(requestLogger);
 
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-    name: Joi.string().min(2).max(30),
-  }).unknown(true),
-}), createUser);
+app.use(require('./routes/users'));
 
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), login);
-
-app.use('/', auth, userRouter);
-
-app.use('/', auth, movieRouter);
-
-app.use(errorLogger);
+app.use(require('./routes/movies'));
 
 app.use((req, res, next) => {
   next(new NotFoundError('NotFound404'));
 });
+
+app.use(errorLogger);
 
 app.use((err, req, res, next) => {
   console.log(err.stack || err);

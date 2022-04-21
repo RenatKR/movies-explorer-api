@@ -48,7 +48,12 @@ module.exports.login = (req, res, next) => {
         throw new UnauthorizedError('Передан неверный логин или пароль');
       }
       const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '7d' });
-      res.send({ token, user });
+      res.send({
+        token,
+        email: user.email,
+        name: user.name,
+        _id: user.id,
+      });
       res.send({ message: 'Аутентификация прошла успешно' });
     })
     .catch(next);
