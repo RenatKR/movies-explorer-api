@@ -2,23 +2,16 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const {
-  celebrate,
-  Joi,
-  isCelebrateError,
-} = require('celebrate');
+const { isCelebrateError } = require('celebrate');
 const cors = require('cors');
-const userRouter = require('./routes/users');
-const movieRouter = require('./routes/movies');
-const { createUser, login } = require('./controllers/users');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, MONGO_BASE, NODE_ENV } = process.env;
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+mongoose.connect(NODE_ENV === 'production' ? MONGO_BASE : 'mongodb://localhost:27017/bitfilmsdb', {
   useNewUrlParser: true,
 });
 
