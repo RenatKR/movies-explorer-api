@@ -10,8 +10,6 @@ const { JWT_SECRET, NODE_ENV } = process.env;
 module.exports.createUser = (req, res, next) => {
   const {
     name,
-    about,
-    avatar,
     password,
     email,
   } = req.body;
@@ -26,8 +24,6 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => {
       User.create({
         name,
-        about,
-        avatar,
         password: hash,
         email,
       })
@@ -78,17 +74,7 @@ module.exports.editUser = (req, res, next) => {
   const { email, name } = req.body;
   User.findOne({ email })
     .then((user) => {
-      if (!user) {
-        return User.findByIdAndUpdate(
-          req.user.id,
-          { email, name },
-          {
-            new: true,
-            runValidators: true,
-          },
-        );
-      }
-      if (user._id.toString() === req.user.id) {
+      if (!user || user._id.toString() === req.user.id) {
         return User.findByIdAndUpdate(
           req.user.id,
           { email, name },

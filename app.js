@@ -22,9 +22,7 @@ app.use(cors());
 
 app.use(requestLogger);
 
-app.use(require('./routes/users'));
-
-app.use(require('./routes/movies'));
+app.use(require('./routes/index'));
 
 app.use((req, res, next) => {
   next(new NotFoundError('NotFound404'));
