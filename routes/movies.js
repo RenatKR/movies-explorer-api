@@ -19,19 +19,22 @@ router.post('/movies', celebrate({
     year: Joi.string().required(),
     description: Joi.string().required(),
     image: Joi.string().required().custom((value, helpers) => {
-      if (isURL(value)) {
-        return value;
+      const ValuetoUrl = `https://api.nomoreparties.co${value}`;
+      if (isURL(ValuetoUrl)) {
+        return ValuetoUrl;
       }
       return helpers.message('Поле ссылка на постер к фильму заполнено неккоректно');
     }),
     trailerLink: Joi.string().required().custom((value, helpers) => {
-      if (isURL(value)) {
+      const ValuetoUrl = `https://api.nomoreparties.co${value}`;
+      if (isURL(ValuetoUrl)) {
         return value;
       }
       return helpers.message('Поле ссылка на трейлер фильма заполнено неккоректно');
     }),
     thumbnail: Joi.string().required().custom((value, helpers) => {
-      if (isURL(value)) {
+      const ValuetoUrl = `https://api.nomoreparties.co${value}`;
+      if (isURL(ValuetoUrl)) {
         return value;
       }
       return helpers.message('Поле миниатюрное изображение постера к фильму заполнено неккоректно');

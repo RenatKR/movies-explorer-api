@@ -8,6 +8,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const { JWT_SECRET, NODE_ENV } = process.env;
 
 module.exports.createUser = (req, res, next) => {
+  console.log(req.body);
   const {
     name,
     password,
@@ -37,7 +38,9 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.login = (req, res, next) => {
+  console.log(req.body);
   const { email, password } = req.body;
+
   return User.findUserByIdCredentials(email, password)
     .then((user) => {
       if (!user) {
@@ -51,6 +54,7 @@ module.exports.login = (req, res, next) => {
         _id: user.id,
       });
       res.send({ message: 'Аутентификация прошла успешно' });
+      console.log('Аутентификация прошла успешно');
     })
     .catch(next);
 };
@@ -71,6 +75,7 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.editUser = (req, res, next) => {
+  console.log(req.body);
   const { email, name } = req.body;
   User.findOne({ email })
     .then((user) => {

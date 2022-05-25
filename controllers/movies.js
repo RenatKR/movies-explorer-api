@@ -4,6 +4,8 @@ const ValidationError = require('../errors/ValidationError');
 const Forbidden = require('../errors/Forbidden');
 
 module.exports.getMovies = (req, res, next) => {
+  console.log('Начинаю отдавать фильмы');
+  console.log(req.headers);
   const curUser = req.user.id;
   Movie.find({ owner: curUser })
     .then((movie) => res.send(movie))
@@ -11,6 +13,7 @@ module.exports.getMovies = (req, res, next) => {
 };
 
 module.exports.createMovie = (req, res, next) => {
+  console.log(req.body);
   const owner = req.user.id;
   const {
     country,
@@ -43,6 +46,7 @@ module.exports.createMovie = (req, res, next) => {
       if (!movie) {
         throw new ValidationError('Переданы некорректные данные при создании фильма');
       }
+      console.log('Фильм записан в базу');
       res.status(200).send(movie);
     })
     .catch(next);
