@@ -8,7 +8,6 @@ const NotFoundError = require('../errors/NotFoundError');
 const { JWT_SECRET, NODE_ENV } = process.env;
 
 module.exports.createUser = (req, res, next) => {
-  console.log(req.body);
   const {
     name,
     password,
@@ -30,7 +29,14 @@ module.exports.createUser = (req, res, next) => {
       })
         .then((user) => User.findOne({ _id: user.id }))
         .then((user) => {
-          res.send({ user });
+          console.log(user);
+          const token = jwt.sign({ id: user.id }, NODE_ENV === 'production' ? JWT_SECRET : 'Hello, world!', { expiresIn: '7d' });
+          res.send({
+            token,
+            email: user.email,
+            name: user.name,
+            _id: user.id,
+          });
         })
         .catch(next);
     })
