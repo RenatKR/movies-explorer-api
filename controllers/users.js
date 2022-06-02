@@ -66,6 +66,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res, next) => {
+  console.log(req);
   User.findById(req.user.id)
     .orFail(() => {
       throw new NotFoundError('Пользователь по указанному _id не найден');
@@ -81,7 +82,9 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.editUser = (req, res, next) => {
+  console.log('*req.body*');
   console.log(req.body);
+  console.log('**req.body**');
   const { email, name } = req.body;
   User.findOne({ email })
     .then((user) => {
