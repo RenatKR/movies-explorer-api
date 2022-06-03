@@ -5,7 +5,6 @@ const Forbidden = require('../errors/Forbidden');
 
 module.exports.getMovies = (req, res, next) => {
   console.log('Начинаю отдавать фильмы');
-  console.log(req.headers);
   const curUser = req.user.id;
   Movie.find({ owner: curUser })
     .then((movie) => res.send(movie))

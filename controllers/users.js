@@ -82,9 +82,7 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.editUser = (req, res, next) => {
-  console.log('*req.body*');
   console.log(req.body);
-  console.log('**req.body**');
   const { email, name } = req.body;
   User.findOne({ email })
     .then((user) => {

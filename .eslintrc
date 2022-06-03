@@ -6,6 +6,7 @@
     "object-shorthand": "off",
     "func-names": "off",
     "no-unused-vars": "off",
-    "no-console":"off"
+    "no-console":"off",
+    "no-control-regex": 0
   }
 }
