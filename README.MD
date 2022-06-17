@@ -1,4 +1,4 @@
-﻿Бэкенд сайта movies-explorer
+Бэкенд сайта movies-explorer
 
 Адрес:
 
